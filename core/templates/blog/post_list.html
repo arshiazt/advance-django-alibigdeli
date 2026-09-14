@@ -10,6 +10,7 @@
     <div>
         <a href="{% url 'blog:post-detail' pk=post.id %}"><h2>{{post.id}} - {{post.title}}</h2></a>
         <a href="{% url 'blog:post-edit' pk=post.id %}"><h2>Edit</h2></a>
+        <a href="{% url 'blog:post-delete' pk=post.id %}"><h2>Delete</h2></a>
     </div>
     {% endfor %}
 </body>
