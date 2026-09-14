@@ -3,6 +3,7 @@ from django.views.generic.base import TemplateView,RedirectView
 from .models import Post
 from .forms import PostForm
 from django.views.generic import ListView,DetailView,FormView,CreateView,UpdateView,DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 
 # Create your views here.
 
@@ -27,8 +28,9 @@ class RedirectToMaktabkhone(RedirectView):
         print(post)
         return super().get_redirect_url(*args, **kwargs)
     
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin,PermissionRequiredMixin,ListView):
     model = Post
+    permission_required = 'blog.view_post'
     # queryset = Post.objects.all()
     context_object_name = 'posts'
     paginate_by = 2
@@ -38,7 +40,7 @@ class PostListView(ListView):
     #     posts = Post.objects.filter(status=True)
     #     return posts
     
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin,DetailView):
     model = Post
 
 class PostFormCreateView(FormView):
@@ -51,7 +53,7 @@ class PostFormCreateView(FormView):
         form.save()
         return super().form_valid(form)
     
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
     # fields = [
     #         'author','title',
@@ -65,11 +67,11 @@ class PostCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
-class PostEditView(UpdateView):
+class PostEditView(LoginRequiredMixin,UpdateView):
     model = Post
     form_class = PostForm
     success_url = '/blog/post/'
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin,DeleteView):
     model = Post
     success_url = '/blog/post/'
