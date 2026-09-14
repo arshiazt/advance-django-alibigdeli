@@ -1,7 +1,9 @@
 from django.shortcuts import render,get_object_or_404
 from django.views.generic.base import TemplateView,RedirectView
 from .models import Post
-from django.views.generic import ListView,DetailView
+from .forms import PostForm
+from django.views.generic import ListView,DetailView,FormView
+
 # Create your views here.
 
 def index_view(request):
@@ -32,9 +34,18 @@ class PostListView(ListView):
     paginate_by = 2
     ordering = '-id'
 
-    def get_queryset(self):
-        posts = Post.objects.filter(status=True)
-        return posts
+    # def get_queryset(self):
+    #     posts = Post.objects.filter(status=True)
+    #     return posts
     
 class PostDetailView(DetailView):
     model = Post
+
+class PostFormCreateView(FormView):
+    template_name = 'blog/contact.html'
+    form_class = PostForm
+    success_url = '/blog/post/'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
