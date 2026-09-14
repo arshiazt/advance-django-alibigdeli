@@ -13,4 +13,5 @@ urlpatterns = [
     path('post/',PostListView.as_view(),name='post-list'),
     path('post/<int:pk>/',PostDetailView.as_view(),name='post-detail'),
     path('post/form-create/',PostFormCreateView.as_view(),name='post-form-create'),
+    path('post/create/',PostCreateView.as_view(),name='post-create'),
 ]

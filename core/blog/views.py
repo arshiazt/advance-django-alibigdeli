@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.views.generic.base import TemplateView,RedirectView
 from .models import Post
 from .forms import PostForm
-from django.views.generic import ListView,DetailView,FormView
+from django.views.generic import ListView,DetailView,FormView,CreateView
 
 # Create your views here.
 
@@ -48,4 +48,18 @@ class PostFormCreateView(FormView):
 
     def form_valid(self, form):
         form.save()
+        return super().form_valid(form)
+    
+class PostCreateView(CreateView):
+    model = Post
+    # fields = [
+    #         'author','title',
+    #         'content','status',
+    #         'category','published_date',
+    #     ]
+    form_class = PostForm
+    success_url = '/blog/post/'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
         return super().form_valid(form)
