@@ -10,4 +10,5 @@ urlpatterns = [
     path('cbv-view-index/', IndexView.as_view(),name='cbv-view-index'),
     path('go-to-maktabkhone/', RedirectView.as_view(url='https://maktabkhooneh.org/'),name='maktabkhone'),
     path('go-to-maktabkhone-view/', RedirectToMaktabkhone.as_view(),name='view-maktabkhone'),
+    path('post/',PostListView.as_view(),name='post-list'),
 ]
