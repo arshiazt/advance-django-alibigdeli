@@ -10,6 +10,7 @@ from rest_framework.generics import GenericAPIView,ListCreateAPIView,RetrieveUpd
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from .permissions import IsOwnerOrReadOnly
 
 # @api_view(['GET','POST'])
 # @permission_classes([IsAuthenticated])
@@ -185,7 +186,7 @@ from rest_framework.decorators import action
 
 class PostModelViewSet(viewsets.ModelViewSet):
     
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsOwnerOrReadOnly]
     serializer_class = PostModelViewSetSerializer
     queryset = Post.objects.filter(status=True)
 
