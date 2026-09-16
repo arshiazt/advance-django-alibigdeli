@@ -14,4 +14,6 @@ urlpatterns = [
     path('listcreatemixin-post/<int:id>/',PostDetailMixin.as_view(),name='listcreatemixin-post-detail'),
     path('listcreateapiview-post/',PostListCreateApiView.as_view(),name='listcreateapiview-post-list'),
     path('listcreateapiview-post/<int:id>/',PostDetailRetrieveUpdateDestroyAPIView.as_view(),name='listcreateapiview-post-detail'),
+    path('viewset-viewset-post/',PostViewSet.as_view({'get':'list','post':'create'}),name='viewset-viewset-post-list'),
+    path('viewset-viewset-post/<int:pk>/',PostViewSet.as_view({'get':'retrive','put':'update','patch':'partial_update','delete':'destroy'}),name='viewset-viewset-post-detail'),
 ]
