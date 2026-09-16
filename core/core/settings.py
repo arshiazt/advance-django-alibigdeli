@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'blog',
 
     'rest_framework',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -132,5 +133,18 @@ STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# user manager config
+# User manager config
 AUTH_USER_MODEL = 'accounts.User'
+
+# Rest frame work settings
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# Swagger settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Ali Bigdeli advance Django',
+    'DESCRIPTION': 'Learning Drf',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
