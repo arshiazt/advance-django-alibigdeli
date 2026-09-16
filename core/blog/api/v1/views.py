@@ -5,6 +5,7 @@ from blog.models import Post
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+from rest_framework.views import APIView
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
@@ -37,5 +38,40 @@ def post_detail(request,id):
         return Response(serializer.data)
     
     elif request.method == 'DELETE':
+        post.delete()
+        return Response({'detail':'item removed successfully'},status=status.HTTP_204_NO_CONTENT)
+    
+class PostListApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self,request):
+        posts = Post.objects.filter(status=True)
+        serializer = PostSerializer(posts,many=True)
+        return Response(serializer.data)
+
+    def post(self,request):
+        serializer = PostSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
+class PostDetailApiView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PostSerializer
+
+    def get(self,request,id):
+        post = get_object_or_404(Post,pk=id,status=True)
+        serializer = self.serializer_class(post)
+        return Response(serializer.data)
+    
+    def put(self,request,id):
+        post = get_object_or_404(Post,pk=id,status=True)
+        serializer = self.serializer_class(post,data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
+    def delete(self,request,id):
+        post = get_object_or_404(Post,pk=id,status=True)
         post.delete()
         return Response({'detail':'item removed successfully'},status=status.HTTP_204_NO_CONTENT)
