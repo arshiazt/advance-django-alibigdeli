@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
+from rest_framework import mixins
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
@@ -113,3 +114,32 @@ class PostDetailGenericAPIView(GenericAPIView):
         post = get_object_or_404(Post,pk=id,status=True)
         post.delete()
         return Response({'detail':'item removed successfully'},status=status.HTTP_204_NO_CONTENT)
+
+class PostListCreateMixin(GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PostSerializer
+    queryset = Post.objects.filter(status=True)
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    
+class PostDetailMixin(GenericAPIView,mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PostSerializer
+    queryset = Post.objects.filter(status=True)
+    lookup_field = 'id'
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

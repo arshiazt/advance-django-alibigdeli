@@ -10,4 +10,6 @@ urlpatterns = [
     path('apiview-post/<int:id>/',PostDetailApiView.as_view(),name='apiview-post-detail'),
     path('genericapiview-post/',PostListGenericApiView.as_view(),name='genericapiview-post-list'),
     path('genericapiview-post/<int:id>/',PostDetailGenericAPIView.as_view(),name='genericapiview-post-detail'),
+    path('listcreatemixin-post/',PostListCreateMixin.as_view(),name='listcreatemixin-post-list'),
+    path('listcreatemixin-post/<int:id>/',PostDetailMixin.as_view(),name='listcreatemixin-post-detail'),
 ]
