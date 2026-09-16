@@ -12,4 +12,6 @@ urlpatterns = [
     path('genericapiview-post/<int:id>/',PostDetailGenericAPIView.as_view(),name='genericapiview-post-detail'),
     path('listcreatemixin-post/',PostListCreateMixin.as_view(),name='listcreatemixin-post-list'),
     path('listcreatemixin-post/<int:id>/',PostDetailMixin.as_view(),name='listcreatemixin-post-detail'),
+    path('listcreateapiview-post/',PostListCreateApiView.as_view(),name='listcreateapiview-post-list'),
+    path('listcreateapiview-post/<int:id>/',PostDetailRetrieveUpdateDestroyAPIView.as_view(),name='listcreateapiview-post-detail'),
 ]
