@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'blog',
 
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_spectacular',
     'django_filters',
 ]
@@ -140,6 +141,11 @@ AUTH_USER_MODEL = 'accounts.User'
 # Rest frame work settings
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 # Swagger settings
