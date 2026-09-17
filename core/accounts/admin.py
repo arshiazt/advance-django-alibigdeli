@@ -7,8 +7,8 @@ from django.contrib.auth.admin import UserAdmin
 class CustomUserAdmin(UserAdmin):
 
     models = User
-    list_display = ('email','is_active','is_staff','is_superuser')
-    list_filter = ('email','is_active','is_staff','is_superuser')
+    list_display = ('email','is_active','is_staff','is_superuser','is_verified')
+    list_filter = ('email','is_active','is_staff','is_superuser','is_verified')
     search_fields = ('email',)
     ordering = ('-created_date',)
     fieldsets = (
@@ -19,7 +19,7 @@ class CustomUserAdmin(UserAdmin):
         }),
         ('Permissions',{
             'fields':(
-                'is_active','is_staff','is_superuser'
+                'is_active','is_staff','is_superuser','is_verified'
             )
         }),
         ('Group Permissions',{
@@ -36,7 +36,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None,{
             'classes':('wide',),
-            'fields':('email','password1','password2','is_active','is_staff','is_superuser')
+            'fields':('email','password1','password2','is_active','is_staff','is_superuser','is_verified')
         }),
     )
 
