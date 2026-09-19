@@ -17,7 +17,10 @@ jobs:
     - name: Setup Docker-Compose
       run: docker compose up -d
     - name: Run Tests
-      run: docker exec backend sh -c "pytest ."
+      run: docker exec backend sh -c "python --version && pytest --version"
+    - name: Run Tests2
+      run: docker exec backend sh -c "pytest . -v"
+    
 
   
   Deploy:
