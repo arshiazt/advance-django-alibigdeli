@@ -5,6 +5,7 @@ from django.views.generic import TemplateView,RedirectView
 app_name = 'blog'
 
 urlpatterns = [
+    path('post/api/',PostListApiView.as_view(),name='api-post-list'),
     path('fbv-index/', index_view,name='fbv-index'),
     path('cbv-index/', TemplateView.as_view(template_name='index.html',extra_context={'name':'ali'}),name='cbv-index'),
     path('cbv-view-index/', IndexView.as_view(),name='cbv-view-index'),

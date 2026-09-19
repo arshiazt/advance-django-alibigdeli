@@ -75,3 +75,6 @@ class PostEditView(LoginRequiredMixin,UpdateView):
 class PostDeleteView(LoginRequiredMixin,DeleteView):
     model = Post
     success_url = '/blog/post/'
+
+class PostListApiView(TemplateView):
+    template_name = 'blog/post_list_api.html'
