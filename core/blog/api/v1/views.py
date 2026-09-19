@@ -189,7 +189,7 @@ from .paginations import DefaultPagination
 
 class PostModelViewSet(viewsets.ModelViewSet):
     
-    permission_classes = [IsAuthenticated,IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     serializer_class = PostModelViewSetSerializer
     queryset = Post.objects.filter(status=True)
     filter_backends = [DjangoFilterBackend,SearchFilter,OrderingFilter]
