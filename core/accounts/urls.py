@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import send_email
+from .views import send_email,test
 
 app_name = 'accounts'
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path('api/v2/',include('djoser.urls')),
     path('api/v2/',include('djoser.urls.jwt')),
     path('send-email/',send_email,name='send-email'),
+    path('test/',test,name='test'),
 ]
